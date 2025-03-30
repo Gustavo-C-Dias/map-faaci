@@ -1,9 +1,10 @@
 import { useState } from "react";
-import "../styles/search.css";
+import styles from "../styles/search.module.css"
+import { Point } from "@/types/Point";
 
 interface SearchProps {
-  points: any[];
-  onKeyWords: (filteredPoints: any[]) => void;
+  points: Point[];
+  onKeyWords: (filteredPoints: Point[]) => void;
 }
 
 export default function Search({ points, onKeyWords }: SearchProps) {
@@ -21,7 +22,7 @@ export default function Search({ points, onKeyWords }: SearchProps) {
 
   return (
     <div
-        className="container"
+        className={styles.container}
     >
         <button>
             Menu

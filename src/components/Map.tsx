@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import PointModal from "./PointModal";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { Point } from "@/types/Point";
 
 const DEFAULT_POSITION: [number, number] = [-27.11, -48.62];
 
-const Map = ({ points, userLocation }: { points: { id: number; name: string; latitude: number; longitude: number }[]; userLocation?: [number, number] }) => {
-  const [selectedPoint, setSelectedPoint] = useState<any>(null);
+const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number, number] }) => {
 
   function CustomZoomControl() {
     const map = useMap();
@@ -39,8 +38,7 @@ const Map = ({ points, userLocation }: { points: { id: number; name: string; lat
             key={point.id}
             position={[point.latitude, point.longitude]}
             icon={customIcon}
-            eventHandlers={{ click: () => setSelectedPoint(point) }}>
-          </Marker>
+          />
         ))}
 
         {userLocation && (
@@ -49,10 +47,8 @@ const Map = ({ points, userLocation }: { points: { id: number; name: string; lat
           </Marker>
         )}
 
-        <CustomZoomControl /> {/* Adiciona o controle de zoom customizado */}
+        <CustomZoomControl />
       </MapContainer>
-
-      <PointModal isOpen={!!selectedPoint} closeModal={() => setSelectedPoint(null)} point={selectedPoint} />
     </>
   );
 };
