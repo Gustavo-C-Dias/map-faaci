@@ -31,7 +31,7 @@ const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number
   return (
     <>
       <MapContainer center={userLocation || DEFAULT_POSITION} zoom={14} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
-        <TileLayer url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png" />
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         {points?.map((point) => (
           <Marker
