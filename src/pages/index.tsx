@@ -23,18 +23,24 @@ export default function Home() {
 
     const fetchPoints = async () => {
       const { data, error } = await supabase
-        .from('Point') 
-        .select();
+      .from('points')
+      .select('id, name, route_id, type, location');
 
       if (error) {
         console.error('Erro ao buscar pontos:', error);
       } else {
-        setPoints(data);
-        setSearchPoints(data);
+        const formattedPoints = data.map((point) => ({
+          ...point,
+          latitude: point.location ? point.location.coordinates[1] : null,
+          longitude: point.location ? point.location.coordinates[0] : null, 
+        }));
+      
+        setPoints(formattedPoints);
+        setSearchPoints(formattedPoints);
       }
     };
 
-    fetchPoints(); // Chama a função de buscar os pontos quando a página carregar
+    fetchPoints();
   }, []);
 
   return (

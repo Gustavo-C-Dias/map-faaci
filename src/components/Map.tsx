@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { Point } from "@/types/Point";
@@ -7,6 +7,7 @@ import { Point } from "@/types/Point";
 const DEFAULT_POSITION: [number, number] = [-27.11, -48.62];
 
 const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number, number] }) => {
+  const [selectedPoint, setSelectedPoint] = useState(null);
 
   function CustomZoomControl() {
     const map = useMap();
@@ -24,9 +25,13 @@ const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number
   }
 
   const customIcon = L.icon({
-    iconUrl: "trilha.webp", // URL do ícone personalizado
+    iconUrl: "trilha.webp",
     iconSize: [32, 32],
   });
+
+  // const route = selectedPoint
+  // ? points.filter((p) => p.start_id === selectedPoint.id || p.end_id === selectedPoint.id)
+  // : [];
 
   return (
     <>
@@ -40,6 +45,10 @@ const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number
             icon={customIcon}
           />
         ))}
+{/* 
+        {route.length > 1 && (
+          <Polyline positions={route.map((p) => [p.latitude, p.longitude])} color="blue" />
+        )} */}
 
         {userLocation && (
           <Marker position={userLocation}>
