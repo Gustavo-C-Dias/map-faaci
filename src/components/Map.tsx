@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { fetchRoute } from "@/service/routes";
+import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import { Point } from "@/types/Point";
 import { Route } from "@/types/Routes";
 
+type MapProps = {
+  points: Point[];
+  onPointSelect: (point: Point) => void;
+  userLocation?: [number, number] | null;
+  route?: Route | null;
+}
+
 const DEFAULT_POSITION: [number, number] = [-27.11, -48.62];
 
-const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number, number] }) => {
-  const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
-  const [route, setRoute] = useState<Route | null>(null);
+const Map = ({
+  points,
+  onPointSelect,
+  userLocation,
+  route,
+}: MapProps) => {
 
   const startIcon = L.icon({
     iconUrl: "trilha.webp",
@@ -22,14 +30,6 @@ const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number
     iconSize: [32, 32],
   });
 
-  useEffect(() => {
-    if (selectedPoint?.route_id) {
-      fetchRoute(selectedPoint.route_id).then((route) => {
-        setRoute(route);
-      });
-    }
-  }, [selectedPoint]);
-
   return (
     <>
       <MapContainer
@@ -38,9 +38,7 @@ const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number
         style={{ height: "100vh", width: "100%" }}
         zoomControl={false}
       >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         {points?.map((point) => (
           <Marker
@@ -48,23 +46,19 @@ const Map = ({ points, userLocation }: { points: Point[]; userLocation?: [number
             position={[point.latitude, point.longitude]}
             icon={point.type === 1 ? startIcon : endIcon}
             eventHandlers={{
-              click: () => setSelectedPoint(point)
+              click: () => onPointSelect(point)
             }}
           />
         ))}
 
         {route && route.path && (
-          <>
-            {console.log(route.path)}
-            <Polyline positions={route.path.coordinates} color="blue" />
-          </>
+          <Polyline positions={route.path.coordinates} color="blue" />
         )}
 
         {userLocation && (
-          <Marker position={userLocation}>
-            <Popup>Sua localização</Popup>
-          </Marker>
+          <Marker position={userLocation} />
         )}
+
       </MapContainer>
     </>
   );
