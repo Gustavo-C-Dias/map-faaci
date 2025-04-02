@@ -1,5 +1,5 @@
 export interface Point {
-  id: string;
+  id: number;
   name: string;
   route_id: number;
   latitude: number;

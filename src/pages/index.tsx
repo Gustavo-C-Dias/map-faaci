@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { supabase } from "../utils/supabase";
+import { fetchPoints } from "@/service/points";
 import Search from "@/components/Search";
 import { Point } from "@/types/Point";
 
@@ -21,26 +21,13 @@ export default function Home() {
       );
     }
 
-    const fetchPoints = async () => {
-      const { data, error } = await supabase
-      .from('points')
-      .select('id, name, route_id, type, location');
-
-      if (error) {
-        console.error('Erro ao buscar pontos:', error);
-      } else {
-        const formattedPoints = data.map((point) => ({
-          ...point,
-          latitude: point.location ? point.location.coordinates[1] : null,
-          longitude: point.location ? point.location.coordinates[0] : null, 
-        }));
-      
-        setPoints(formattedPoints);
-        setSearchPoints(formattedPoints);
-      }
+    const loadPoints = async () => {
+      const fetchedPoints = await fetchPoints();
+      setPoints(fetchedPoints);
+      setSearchPoints(fetchedPoints);
     };
 
-    fetchPoints();
+    loadPoints();
   }, []);
 
   return (
