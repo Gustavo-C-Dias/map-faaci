@@ -1,5 +1,28 @@
 .container {
-    z-index: 1000;
-    position: absolute;
-    margin: 24px;
+  width: 100%;
+  font-size: 16px;
+  z-index: 1000;
+  position: absolute;
+  padding: 16px;
+
+  @media screen and (min-width: 840px) {
+    padding: 24px;
+  }
+}
+
+.input {
+  width: 100%;
+  border: none;
+  border-radius: 24px;
+  padding: 16px 24px;
+  font-size: 16px;
+
+  @media screen and (min-width: 840px) {
+    width: 450px;
+  }
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 2px 16px rgba(40, 40, 40, 0.4);
 }

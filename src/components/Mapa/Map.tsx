@@ -1,5 +1,5 @@
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import IconMap from "./Icon";
 import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import { Point } from "@/types/Point";
 import { Route } from "@/types/Routes";
@@ -20,16 +20,6 @@ const Map = ({
   route,
 }: MapProps) => {
 
-  const startIcon = L.icon({
-    iconUrl: "trilha.webp",
-    iconSize: [32, 32],
-  });
-
-  const endIcon = L.icon({
-    iconUrl: "trilha.webp",
-    iconSize: [32, 32],
-  });
-
   return (
     <>
       <MapContainer
@@ -40,16 +30,20 @@ const Map = ({
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-        {points?.map((point) => (
-          <Marker
-            key={point.id}
-            position={[point.latitude, point.longitude]}
-            icon={point.type === 1 ? startIcon : endIcon}
-            eventHandlers={{
-              click: () => onPointSelect(point)
-            }}
-          />
-        ))}
+        {points?.map((point) => {
+          const icon = IconMap({ pointType: point.type });
+
+          return (
+            <Marker
+              key={point.id}
+              position={[point.latitude, point.longitude]}
+              icon={icon}
+              eventHandlers={{
+                click: () => onPointSelect(point)
+              }}
+            />
+          );
+        })}
 
         {route && route.path && (
           <Polyline positions={route.path.coordinates} color="blue" />

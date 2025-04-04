@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-
-import Search from "@/components/Search";
+import Details from "@/components/Details/Details";
+import Search from "@/components/Filters/Search";
 
 import { fetchPoints } from "@/service/points";
 import { fetchRoute } from "@/service/routes";
@@ -10,7 +10,7 @@ import { fetchRoute } from "@/service/routes";
 import { Point } from "@/types/Point";
 import { Route } from "@/types/Routes";
 
-const Map = dynamic(() => import("../components/Map"), { ssr: false });
+const Map = dynamic(() => import("../components/Mapa/Map"), { ssr: false });
 
 export default function Home() {
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
@@ -55,13 +55,16 @@ export default function Home() {
         value={searchTerm}
         onChange={setSearchTerm}
       />
+      <main>
+        <Map
+          points={filteredPoints}
+          userLocation={userLocation}
+          onPointSelect={setSelectedPoint}
+          route={route}
+        />
 
-      <Map
-        points={filteredPoints}
-        userLocation={userLocation}
-        onPointSelect={setSelectedPoint}
-        route={route}
-      />
+        <Details route={route} />
+      </main>
     </>
   );
 }
