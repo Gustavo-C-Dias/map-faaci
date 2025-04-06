@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from '@/styles/details.module.css'
 import { Route } from '@/types/Routes'
+import Info from './Info';
+import Slide from './Slide';
 import Image from 'next/image';
 
 type DetailsProps = {
@@ -18,37 +20,46 @@ export default function Details({ route }: DetailsProps) {
 
   return (
     <section className={styles.container}>
-      <button onClick={() => setIsOpen(false)}>Fechar</button>
+      <button
+        className={styles.button}
+        onClick={() => setIsOpen(false)}
+      >
+        <Image
+          src={'/icons/close.png'}
+          alt={'Fechar'}
+          width={20}
+          height={20}
+        />
+      </button>
 
-      <div>
-        {route.photos.map((file, index) => (
-          <Image
-            key={index}
-            src={`/lugares/${file}`}
-            alt={`Foto ${index + 1}`}
-            width={300}
-            height={200}
-          />
-        ))}
-      </div>
+      <Slide route={route} />
 
-      <div>
-        <h1>{route.route_name}</h1>
-        <p>{route.description}</p>
-      </div>
+      <div className={styles.content}>
+        <div>
+          <h1 className={styles.title}>{route.route_name}</h1>
+          <p className={styles.description}>{route.description}</p>
+        </div>
 
-      <div>
-        <h2>Informações Técnicas</h2>
-        <p>Distância: {route.distance}</p>
-        <p>Dificuldade: {route.difficulty}</p>
-        <p>Altitude Máxima: {route.altitude_max}</p>
-        <p>Altitude Mínima: {route.altitude_min}</p>
-        <p>Elevação Total: {route.elevation_total}</p>
-        <p>Perda Total: {route.loss_total}</p>
-      </div>
+        <hr className={styles.divider}/>
 
-      <div>
-        <h2>Pontos próximos da rota</h2>
+        <div>
+          <h2 className={styles.subtitle}>Informações Técnicas</h2>
+          <div>
+            <Info icon='difficulty.png' info={`Dificuldade: ${route.difficulty}`} />
+            <Info icon='distance.png' info={`Distância: ${route.distance}km`} />
+            <Info icon='loss.png' info={`Tempo: ${route.time}m`} />
+            <Info icon='altitude_max.png' info={`Altitude máx: ${route.altitude_max}m`} />
+            <Info icon='altitude_min.png' info={`Altitude min: ${route.altitude_min}m`} />
+            <Info icon='elevation.png' info={`Elevação total ${route.elevation_total}m`} />
+            <Info icon='loss.png' info={`Descida total: ${route.loss_total}m`} />
+          </div>
+        </div>
+
+        <hr className={styles.divider}/>
+
+        <div>
+          
+        </div>
       </div>
     </section>
   );

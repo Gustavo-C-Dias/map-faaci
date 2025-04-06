@@ -12,4 +12,5 @@ export interface Route {
   elevation_total: number;
   loss_total: number;
   description: string;
+  time: string;
 }

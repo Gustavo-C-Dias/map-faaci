@@ -10,22 +10,17 @@ const IconMap = ({
 
   if (pointType === 0) {
     return L.icon({
-      iconUrl: "icons/trilha.webp",
-      iconSize: [32, 32],
+      iconUrl: "icons/trilha_start.png",
+      iconSize: [26, 34],
     });
   }
 
   if (pointType === 1) {
     return L.icon({
-      iconUrl: "icons/trilha.webp",
-      iconSize: [32, 32],
+      iconUrl: "icons/trilha_end.png",
+      iconSize: [26, 34],
     });
   }
-
-  return L.icon({
-    iconUrl: "icons/teste.png",
-    iconSize: [32, 32],
-  });
 }
 
 export default IconMap;

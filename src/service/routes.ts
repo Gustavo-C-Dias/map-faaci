@@ -4,7 +4,7 @@ import { Route } from "@/types/Routes";
 export async function fetchRoute(idPath: number): Promise<Route | null> {
   const { data, error } = await supabase
     .from("routes")
-    .select("id, route_name, path, difficulty, distance, photos, altitude_max, altitude_min, elevation_total, loss_total, description")
+    .select("id, route_name, path, difficulty, distance, photos, altitude_max, altitude_min, elevation_total, loss_total, description, time")
     .eq("id", idPath)
     .single();
 
