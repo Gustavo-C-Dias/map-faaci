@@ -5,12 +5,33 @@
     z-index: 3000;
     margin: 1vh;
     height: 98vh;
-    width: 30vw;
+    width: 35vw;
+    max-width: 540px;
     background-color: white;
     box-shadow: 0 2px 16px rgba(40, 40, 40, 0.4);
     transition: transform 0.3s ease-in-out;
     border-radius: 24px;
-    overflow-y: auto;  
+    overflow-y: auto; 
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 45vw;
+        min-width: 450px;
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .container {
+        width: 100vw;
+        height: 45vh;
+        min-width: auto;
+        max-width: none;
+        margin: 0;
+        bottom: 0;
+        top: auto;
+        right: auto;
+    }
 }
 
 .button {
