@@ -40,7 +40,8 @@ const Map = ({
               position={[point.latitude, point.longitude]}
               icon={icon}
               eventHandlers={{
-                click: () => onPointSelect(point)
+                click: () => onPointSelect(point),
+                popupopen: () => onPointSelect(point)
               }}
             />
           );
