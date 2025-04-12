@@ -18,6 +18,7 @@
     .container {
         width: 45vw;
         min-width: 450px;
+        border-radius: 24px 24x 0 0;
     }
 }
 
