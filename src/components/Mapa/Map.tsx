@@ -1,7 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import IconMap from "./Icon";
 import IconUserLocation from "./UserLocation";
-import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Point } from "@/types/Point";
 import { Tourism } from "@/types/Tourism";
 
