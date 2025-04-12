@@ -24,7 +24,7 @@
 @media screen and (max-width: 840px) {
     .container {
         width: 100vw;
-        height: 45vh;
+        height: 55vh;
         min-width: auto;
         max-width: none;
         margin: 0;
@@ -76,5 +76,5 @@
 
 .divider {
     border: solid 1px rgb(220, 220, 220);
-    margin: 12px 0;
+    margin: 16px 0;
 }

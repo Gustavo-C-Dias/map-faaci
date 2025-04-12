@@ -6,15 +6,18 @@ import Search from "@/components/Filters/Search";
 
 import { fetchPoints } from "@/service/points";
 import { fetchRoute } from "@/service/routes";
+import { fetchTourism } from "@/service/tourism";
 
 import { Point } from "@/types/Point";
 import { Route } from "@/types/Routes";
+import { Tourism } from "@/types/Tourism";
 
 const Map = dynamic(() => import("../components/Mapa/Map"), { ssr: false });
 
 export default function Home() {
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
   const [route, setRoute] = useState<Route | null>(null);
+  const [tourism, setTourism] = useState<Tourism[]>([]);
   const [points, setPoints] = useState<Point[]>([]);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,6 +45,10 @@ export default function Home() {
       fetchRoute(selectedPoint.route_id).then((route) => {
         setRoute(route);
       });
+
+      fetchTourism(selectedPoint.route_id).then((tourism) => {
+        setTourism(tourism);
+      });
     }
   }, [selectedPoint]);
 
@@ -60,10 +67,13 @@ export default function Home() {
           points={filteredPoints}
           userLocation={userLocation}
           onPointSelect={setSelectedPoint}
-          route={route}
+          tourism={tourism}
         />
 
-        <Details route={route} />
+        <Details
+          route={route}
+          tourism={tourism}
+        />
       </main>
     </>
   );

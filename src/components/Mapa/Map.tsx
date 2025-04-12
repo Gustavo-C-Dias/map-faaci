@@ -3,13 +3,13 @@ import IconMap from "./Icon";
 import IconUserLocation from "./UserLocation";
 import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import { Point } from "@/types/Point";
-import { Route } from "@/types/Routes";
+import { Tourism } from "@/types/Tourism";
 
 type MapProps = {
   points: Point[];
   onPointSelect: (point: Point) => void;
   userLocation?: [number, number] | null;
-  route?: Route | null;
+  tourism?: Tourism[]
 }
 
 const DEFAULT_POSITION: [number, number] = [-27.11, -48.62];
@@ -18,7 +18,7 @@ const Map = ({
   points,
   onPointSelect,
   userLocation,
-  route,
+  tourism,
 }: MapProps) => {
 
   return (
@@ -46,9 +46,17 @@ const Map = ({
           );
         })}
 
-        {route && route.path && (
-          <Polyline positions={route.path.coordinates} color="blue" />
-        )}
+        {tourism?.map((tourism) => {
+          const icon = IconMap({ pointType: tourism.type });
+
+          return (
+            <Marker
+              key={tourism.id}
+              position={[tourism.latitude, tourism.longitude]}
+              icon={icon}
+            />
+          );
+        })}
 
         {userLocation && (
           <Marker

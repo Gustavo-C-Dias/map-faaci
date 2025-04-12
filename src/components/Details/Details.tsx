@@ -1,15 +1,23 @@
 import { useEffect, useState } from 'react';
-import styles from '@/styles/details.module.css'
 import { Route } from '@/types/Routes'
+import { Tourism } from '@/types/Tourism';
+
+import styles from '@/styles/details.module.css'
+
 import Info from './Info';
 import Slide from './Slide';
 import Image from 'next/image';
+import Galery from './Galery';
 
 type DetailsProps = {
   route: Route | null;
+  tourism: Tourism[];
 }
 
-export default function Details({ route }: DetailsProps) {
+export default function Details({
+  route,
+  tourism,
+}: DetailsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -57,9 +65,7 @@ export default function Details({ route }: DetailsProps) {
 
         <hr className={styles.divider}/>
 
-        <div>
-          
-        </div>
+        <Galery tourism={tourism}/>
       </div>
     </section>
   );

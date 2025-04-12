@@ -21,6 +21,13 @@ const IconMap = ({
       iconSize: [26, 34],
     });
   }
+
+  if (pointType === 2) {
+    return L.icon({
+      iconUrl: "icons/restaurant.png",
+      iconSize: [20, 28],
+    });
+  }
 }
 
 export default IconMap;
