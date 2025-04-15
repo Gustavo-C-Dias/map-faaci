@@ -46,6 +46,14 @@ export default function Details({
         <div>
           <h1 className={styles.title}>{route.route_name}</h1>
           <p className={styles.description}>{route.description}</p>
+          <a href={route.link}>
+            <Image
+              src={'/icons/google-maps.png'}
+              alt={'Acessar Google Maps'}
+              height={33}
+              width={170}
+            />
+          </a>
         </div>
 
         <hr className={styles.divider}/>

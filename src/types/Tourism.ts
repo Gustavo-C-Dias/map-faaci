@@ -5,6 +5,7 @@ export interface Tourism {
     latitude: number;
     longitude: number;
     type: number;
-    photo: string;
+    photos: string[];
+    description: string;
   }
     

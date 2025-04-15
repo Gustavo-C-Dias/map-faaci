@@ -4,7 +4,7 @@ import { Tourism } from "@/types/Tourism";
 export async function fetchTourism(idPath: number): Promise<Tourism[]> {
   const { data, error } = await supabase
     .from("tourism")
-    .select("id, name, route_id, type, location, photo")
+    .select("id, name, route_id, type, location, photos, description")
     .eq("route_id", idPath);
 
   if (error) {

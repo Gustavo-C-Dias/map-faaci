@@ -10,4 +10,5 @@ export interface Route {
   loss_total: number;
   description: string;
   time: string;
+  link: string;
 }

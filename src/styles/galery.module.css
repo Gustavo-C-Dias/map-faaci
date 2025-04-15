@@ -5,9 +5,7 @@
 }
 
 .content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    display: inline-flex;
     gap: 16px;
     overflow-x: auto;
 }
@@ -15,8 +13,7 @@
 .card {
     border: solid 2px rgb(220, 220, 220);
     border-radius: 8px;
-    height: 260px;
-    width: 224px;
+    width: 290px;
 }
 
 .image {
@@ -25,5 +22,14 @@
 
 .info {
     padding: 8px;
-    font-size: 16px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px; 
+}
+
+.description {
+    font-size: 14px;
 }
